@@ -12,3 +12,6 @@ vitest-results.json
 .zcode/
 .codebuddy/
 generated-images/
+
+# IntelliJ IDEA 项目文件
+.idea/
