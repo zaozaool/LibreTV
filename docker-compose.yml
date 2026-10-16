@@ -9,11 +9,17 @@ services:
     container_name: libretv
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "9107:8080"
     # 无状态服务：观看历史在浏览器 IndexedDB、设置在 localStorage，无需挂载卷
     environment:
       # 必填：访问密码（在 .env 中设置，缺失时 compose 启动即报错提醒）
       - PASSWORD=${PASSWORD:?请在 .env 中设置 PASSWORD}
+      # 预置采集站（主力源+补充源），用户端自动出现且默认勾选
+      - DEFAULT_SOURCES=${DEFAULT_SOURCES}
+      # 预置直播源（M3U 订阅）
+      - DEFAULT_LIVE_SOURCES=${DEFAULT_LIVE_SOURCES}
+      # 允许 http 局域网访问时正常登录（关闭 cookie Secure 标记）
+      - COOKIE_SECURE=${COOKIE_SECURE}
       # 可选：会话/代理签名密钥（多实例部署建议显式设置：openssl rand -hex 32）
       # - PROXY_SECRET=your-secret
       # 可选：Cookie Secure 策略覆盖（true=强制开启 / false=强制关闭；不设置时按请求协议自动推导，HTTP 部署无需配置）
